@@ -889,18 +889,18 @@ export class GitHubWorkflow extends PipelineBase {
     const outputDir = process.env.CDK_OUTDIR || targetDir;
 
     if (this.preSynthed) {
-        return this.stepsToCheckout();
+      return this.stepsToCheckout();
     }
 
     return [{
-        name: `Download ${CDKOUT_ARTIFACT}`,
-        uses: 'actions/download-artifact@v4',
-        with: {
-            name: CDKOUT_ARTIFACT,
-            path: outputDir,
-        },
+      name: `Download ${CDKOUT_ARTIFACT}`,
+      uses: 'actions/download-artifact@v4',
+      with: {
+        name: CDKOUT_ARTIFACT,
+        path: outputDir,
+      },
     }];
-}
+  }
 
   private stepsToCheckout(): github.JobStep[] {
     return [
@@ -912,20 +912,20 @@ export class GitHubWorkflow extends PipelineBase {
   }
   private stepsToUploadAssembly(dir: string): github.JobStep[] {
     if (this.preSynthed) {
-        return [];
+      return [];
     }
 
     const outputDir = process.env.CDK_OUTDIR || dir;
 
     return [{
-        name: `Upload ${CDKOUT_ARTIFACT}`,
-        uses: 'actions/upload-artifact@v4',
-        with: {
-            name: CDKOUT_ARTIFACT,
-            path: outputDir,
-        },
+      name: `Upload ${CDKOUT_ARTIFACT}`,
+      uses: 'actions/upload-artifact@v4',
+      with: {
+        name: CDKOUT_ARTIFACT,
+        path: outputDir,
+      },
     }];
-}
+  }
 
   private renderDependencies(node: AGraphNode) {
     const deps = new Array<AGraphNode>();
